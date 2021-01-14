@@ -21,7 +21,7 @@ public class Powers {
         System.out.println(equation + " class for second power evaluation is being reached");
         // some calculation code will go here in the future
         stringLength = equation.length();
-        for(int i = 0; i < stringLength; i++)
+        for (int i = 0; i < stringLength; i++)
         equation.delete(0, 1);
         
         equation.append("1");

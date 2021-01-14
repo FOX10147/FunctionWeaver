@@ -81,8 +81,6 @@ public class ParenthesisEvaluator {
                     else if (equation.charAt(i+1) == 'q') {
                         if (equation.charAt(i+2) == 'r') {
                             if (equation.charAt(i+3) == 't') {
-                                // Roots roots = new Roots();
-                                // roots.TestForFuture(equation);
                                 substringStart = i;
                                 substringEnd = i + 4;
                                 for(int k = i + 4; k < j; k++)
@@ -108,9 +106,7 @@ public class ParenthesisEvaluator {
 
                 if (equation.charAt(i) == 'l') {
                     if (equation.charAt(i+1) == 'o') {
-                        if (equation.charAt(i+2) == 'g') 
-                        {   // Logarithm logarithm = new Logarithm();
-                            // logarithm.TestForFuture(equation);
+                        if (equation.charAt(i+2) == 'g') {
                             substringStart = i;
                             substringEnd = i + 3;
                             for(int k = i + 3; k < j; k++)
@@ -134,6 +130,19 @@ public class ParenthesisEvaluator {
                 }
             }
         } while(flag);
+
+        do 
+        {   flag = false;
+            for (int i = 0; i < equation.length(); i++)
+            {   if (equation.charAt(i) == '(' || equation.charAt(i) == ')')
+                {   equation.delete(i, i + 1);
+                    flag = true;
+                    break;
+                }
+            }
+        }   while(flag);
+        
+        System.out.println(equation);
 
         return equation;
     }

@@ -20,8 +20,14 @@ public class main {
         System.out.println();
         System.out.println("I'm reading " + Equation);
 
-        ParenthesisEvaluator evaluator = new ParenthesisEvaluator();
-        evaluator.ParenthesisRecurse(equation);
+        ParenthesisEvaluator p_evaluator = new ParenthesisEvaluator();
+        // ExponentEvaluator e_evaluator = new ExponentEvaluator();
+        MDEvaluator md_evaluator = new MDEvaluator();
+        ASEvaluator as_evaluator = new ASEvaluator();
+        equation = p_evaluator.ParenthesisRecurse(equation);
+        // equation = e_evaluator.exponentCrunch(equation);
+        equation = md_evaluator.Crunch(equation);
+        equation = as_evaluator.lastCrunch(equation);
 
     }
     
