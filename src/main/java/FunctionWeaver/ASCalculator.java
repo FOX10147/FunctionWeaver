@@ -67,7 +67,7 @@ public class ASCalculator {
         equation.delete(0, 1);
         
         equation.append(new Double(resultValue).toString());
-        System.out.println(equation.toString() + " leaving addition class");
+        System.out.println(equation.toString() + " leaving subtraction class");
 
         return equation;
     }

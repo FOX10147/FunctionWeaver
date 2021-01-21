@@ -29,6 +29,8 @@ public class main {
         equation = md_evaluator.Crunch(equation);
         equation = as_evaluator.lastCrunch(equation);
 
+        sc.close();
+
     }
     
 }

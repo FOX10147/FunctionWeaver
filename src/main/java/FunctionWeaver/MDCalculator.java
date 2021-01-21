@@ -37,7 +37,7 @@ public class MDCalculator {
         equation.delete(0, 1);
         
         equation.append(new Double(resultValue).toString());
-        System.out.println(equation.toString() + " leaving addition class");
+        System.out.println(equation.toString() + " leaving multiplication class");
 
         return equation;
     }
@@ -66,7 +66,7 @@ public class MDCalculator {
         equation.delete(0, 1);
         
         equation.append(new Double(resultValue).toString());
-        System.out.println(equation.toString() + " leaving addition class");
+        System.out.println(equation.toString() + " leaving division class");
 
         return equation;
     }

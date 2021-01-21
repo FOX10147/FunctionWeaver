@@ -72,7 +72,7 @@ public class ParenthesisEvaluator {
                         if (equation.charAt(i+2) == 'n') {
                             StringBuilder equation_2 = new StringBuilder().append(equation);
                             Trigonometry trig = new Trigonometry(equation_2);
-                            equation_2 = trig.TestForFuture(equation_2);
+                            equation_2 = trig.sinTest(equation_2);
                             equation = equation_2;
                             flag = true;
                             break;
