@@ -6,7 +6,7 @@ public class MDEvaluator {
         int substringStart = 0;
         int substringEnd = 0;
         boolean M = true;
-        boolean flag = false;
+        boolean flag;
 
         do
         {   flag = false;

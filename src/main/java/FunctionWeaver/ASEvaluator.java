@@ -6,7 +6,7 @@ public class ASEvaluator {
         int substringStart = 0;
         int substringEnd = 0;
         boolean A = true;
-        boolean flag = false;
+        boolean flag;
 
         do
         {   flag = false;

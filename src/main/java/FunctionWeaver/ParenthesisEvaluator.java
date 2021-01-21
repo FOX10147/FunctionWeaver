@@ -10,16 +10,16 @@ public class ParenthesisEvaluator {
         int substringEnd = 0;
         int j = equation.length();
         for (int i = 0; i < j; i++) {
-            if (equation.charAt(i) == '(') {
-                count++;
-                if (count == 1) {
-                    substringStart = i + 1;
+            if (equation.charAt(i) == '(') 
+            {   count++;
+                if (count == 1) 
+                {   substringStart = i + 1;
                 }
             }
-            else if (equation.charAt(i) == ')') {
-                count--;
-                if (count == 0) {
-                    StringBuilder sub = new StringBuilder(equation.substring(substringStart, i));
+            else if (equation.charAt(i) == ')') 
+            {   count--;
+                if (count == 0) 
+                {   StringBuilder sub = new StringBuilder(equation.substring(substringStart, i));
                     StringBuilder comparison = new StringBuilder();
                     ParenthesisEvaluator Evaluator = new ParenthesisEvaluator();
                     comparison = Evaluator.ParenthesisRecurse(sub);
@@ -38,10 +38,10 @@ public class ParenthesisEvaluator {
             substringStart = 0;
             substringEnd = 0;
             j = equation.length();
-            for (int i = 0; i < j; i++) {
-                if (equation.charAt(i) == 'e') {
-                    if (equation.charAt(i+1) == '^') {
-                        substringStart = i;
+            for (int i = 0; i < j; i++) 
+            {   if (equation.charAt(i) == 'e') 
+                {   if (equation.charAt(i+1) == '^') 
+                    {   substringStart = i;
                         substringEnd = i+2;
                         for(int k = i + 2; k < j; k++)
                         {   if (equation.charAt(k) == ')')
@@ -51,7 +51,7 @@ public class ParenthesisEvaluator {
                         StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
                         StringBuilder comparison = new StringBuilder();
                         Powers expPower = new Powers();
-                        comparison = expPower.TestForFuture2(sub);
+                        comparison = expPower.exponentTest(sub);
                         System.out.println("original pow substring: " + sub + " --> new pow substring: " + comparison);
                         equation.delete(substringStart, substringEnd);
                         equation.insert(substringStart, comparison);
@@ -62,15 +62,15 @@ public class ParenthesisEvaluator {
                     }
                 }
                 
-                if (equation.charAt(i) == '^') {
-                    Powers powers = new Powers();
+                if (equation.charAt(i) == '^') 
+                {   Powers powers = new Powers();
                     powers.TestForFuture(equation);
                 }
             
-                if (equation.charAt(i) == 's') {
-                    if (equation.charAt(i+1) == 'i') {
-                        if (equation.charAt(i+2) == 'n') {
-                            StringBuilder equation_2 = new StringBuilder().append(equation);
+                if (equation.charAt(i) == 's') 
+                {   if (equation.charAt(i+1) == 'i') 
+                    {   if (equation.charAt(i+2) == 'n') 
+                        {   StringBuilder equation_2 = new StringBuilder().append(equation);
                             Trigonometry trig = new Trigonometry(equation_2);
                             equation_2 = trig.sinTest(equation_2);
                             equation = equation_2;
@@ -78,10 +78,10 @@ public class ParenthesisEvaluator {
                             break;
                         }
                     }
-                    else if (equation.charAt(i+1) == 'q') {
-                        if (equation.charAt(i+2) == 'r') {
-                            if (equation.charAt(i+3) == 't') {
-                                substringStart = i;
+                    else if (equation.charAt(i+1) == 'q') 
+                    {   if (equation.charAt(i+2) == 'r') 
+                        {   if (equation.charAt(i+3) == 't') 
+                            {   substringStart = i;
                                 substringEnd = i + 4;
                                 for(int k = i + 4; k < j; k++)
                                 {   if (equation.charAt(k) == ')')
@@ -99,15 +99,15 @@ public class ParenthesisEvaluator {
                                 i -= sub.length() - comparison.length();
                                 flag = true;
                                 break;
-                                }
+                            }
                         }
                     }
                 }
 
-                if (equation.charAt(i) == 'l') {
-                    if (equation.charAt(i+1) == 'o') {
-                        if (equation.charAt(i+2) == 'g') {
-                            substringStart = i;
+                if (equation.charAt(i) == 'l') 
+                {   if (equation.charAt(i+1) == 'o') 
+                    {   if (equation.charAt(i+2) == 'g') 
+                        {   substringStart = i;
                             substringEnd = i + 3;
                             for(int k = i + 3; k < j; k++)
                             {   if (equation.charAt(k) == ')')
@@ -128,8 +128,69 @@ public class ParenthesisEvaluator {
                         }
                     }
                 }
+
+                if (equation.charAt(i) == '*' || equation.charAt(i) == '/')
+                {   for (int k = i - 1; k >= 0; k--)
+                    if (equation.charAt(k) == '0' || equation.charAt(k) == '1' || equation.charAt(k) == '2' ||
+                        equation.charAt(k) == '3' || equation.charAt(k) == '4' || equation.charAt(k) == '5' ||
+                        equation.charAt(k) == '6' || equation.charAt(k) == '7' || equation.charAt(k) == '8' ||
+                        equation.charAt(k) == '9' || equation.charAt(k) == '.' || equation.charAt(k) == 'x')
+                        {   substringStart = k;   }
+                    else break;
+
+                    for (int k = i + 1; k < equation.length(); k++)
+                    if (equation.charAt(k) == '0' || equation.charAt(k) == '1' || equation.charAt(k) == '2' ||
+                        equation.charAt(k) == '3' || equation.charAt(k) == '4' || equation.charAt(k) == '5' ||
+                        equation.charAt(k) == '6' || equation.charAt(k) == '7' || equation.charAt(k) == '8' ||
+                        equation.charAt(k) == '9' || equation.charAt(k) == '.' || equation.charAt(k) == 'x')
+                        {   substringEnd = k + 1;   }
+                    else break;
+
+                    StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
+                    StringBuilder comparison = new StringBuilder();
+                    MDEvaluator md_evaluator = new MDEvaluator();
+                    comparison = md_evaluator.Crunch(sub);
+                    System.out.println("original substring: " + sub + " --> new substring: " + comparison);
+                    equation.delete(substringStart, substringEnd);
+                    equation.insert(substringStart, comparison);
+                    System.out.println(equation);
+                    i -= sub.length() - comparison.length();
+                    flag = true;
+                    break;
+                }
+
+                if (equation.charAt(i) == '+' || equation.charAt(i) == '-')
+                {   for (int k = i - 1; k >= 0; k--)
+                    if (equation.charAt(k) == '0' || equation.charAt(k) == '1' || equation.charAt(k) == '2' ||
+                        equation.charAt(k) == '3' || equation.charAt(k) == '4' || equation.charAt(k) == '5' ||
+                        equation.charAt(k) == '6' || equation.charAt(k) == '7' || equation.charAt(k) == '8' ||
+                        equation.charAt(k) == '9' || equation.charAt(k) == '.' || equation.charAt(k) == 'x')
+                        {   substringStart = k;   }
+                    else break;
+
+                    for (int k = i + 1; k < equation.length(); k++)
+                    if (equation.charAt(k) == '0' || equation.charAt(k) == '1' || equation.charAt(k) == '2' ||
+                        equation.charAt(k) == '3' || equation.charAt(k) == '4' || equation.charAt(k) == '5' ||
+                        equation.charAt(k) == '6' || equation.charAt(k) == '7' || equation.charAt(k) == '8' ||
+                        equation.charAt(k) == '9' || equation.charAt(k) == '.' || equation.charAt(k) == 'x')
+                        {   substringEnd = k + 1;   }
+                    else break;
+
+                    StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
+                    StringBuilder comparison = new StringBuilder();
+                    ASEvaluator as_evaluator = new ASEvaluator();
+                    comparison = as_evaluator.lastCrunch(sub);
+                    System.out.println("original substring: " + sub + " --> new substring: " + comparison);
+                    equation.delete(substringStart, substringEnd);
+                    equation.insert(substringStart, comparison);
+                    System.out.println(equation);
+                    i -= sub.length() - comparison.length();
+                    flag = true;
+                    break;
+                }
             }
-        } while(flag);
+        } 
+        while(flag);
 
         do 
         {   flag = false;
@@ -140,7 +201,8 @@ public class ParenthesisEvaluator {
                     break;
                 }
             }
-        }   while(flag);
+        }   
+        while(flag);
         
         System.out.println(equation);
 
