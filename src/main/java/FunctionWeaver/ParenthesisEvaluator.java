@@ -1,7 +1,8 @@
 package FunctionWeaver;
 
-public class ParenthesisEvaluator implements Pump {
+public class ParenthesisEvaluator implements Prime, partialStrings {
     private boolean flag = false;
+    protected char code = ' ';
 
     public StringBuilder ParenthesisRecurse(StringBuilder equation) 
     {   System.out.println(equation);
@@ -17,21 +18,14 @@ public class ParenthesisEvaluator implements Pump {
             if (equation.charAt(i) == '(') 
             {   count++;
                 if (count == 1) 
-                {   substringStart = i + 1;
-                }
+                    substringStart = i + 1;
             }
             else if (equation.charAt(i) == ')') 
             {   count--;
                 if (count == 0) 
-                {   StringBuilder sub = new StringBuilder(equation.substring(substringStart, i));
-                    StringBuilder comparison = new StringBuilder();
-                    ParenthesisEvaluator Evaluator = new ParenthesisEvaluator();
-                    comparison = Evaluator.ParenthesisRecurse(sub);
-                    System.out.println("original substring: " + sub + " --> new substring: " + comparison);
-                    equation.delete(substringStart, i);
-                    equation.insert(substringStart, comparison);
-                    System.out.println(equation);
-                    i -= sub.length() - comparison.length();
+                {   substringEnd = i;
+                    code = 'P';
+                    i = weaveAnotherString(equation, substringStart, substringEnd, i, code);
                     j = equation.length();
                 }
             }
@@ -52,17 +46,8 @@ public class ParenthesisEvaluator implements Pump {
                             {   substringEnd++; break;  }
                             else substringEnd++;
                         }
-                        StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
-                        StringBuilder comparison = new StringBuilder();
-                        Powers expPower = new Powers();
-                        sl = sub.length();
-                        comparison = expPower.exponentTest(sub);
-                        cl = comparison.length();
-                        System.out.println("original pow substring: " + sub + " --> new pow substring: " + comparison);
-                        equation.delete(substringStart, substringEnd);
-                        equation.insert(substringStart, comparison);
-                        System.out.println(equation);
-                        i -= sl - cl;
+                        code = 'E';
+                        i = weaveAnotherString(equation, substringStart, substringEnd, i, code);
                         flag = true;
                         break;
                     }
@@ -71,17 +56,8 @@ public class ParenthesisEvaluator implements Pump {
                 if (equation.charAt(i) == '^') 
                 {   substringStart = putMarker1(equation, i, substringStart);
                     substringEnd = putMarker2(equation, i + 1, substringEnd);
-                    StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
-                    StringBuilder comparison = new StringBuilder();
-                    Powers powers = new Powers();
-                    sl = sub.length();
-                    comparison = powers.powerTest(sub);
-                    cl = comparison.length();
-                    System.out.println("original substring: " + sub + " --> new substring: " + comparison);
-                    equation.delete(substringStart, substringEnd);
-                    equation.insert(substringStart, comparison);
-                    System.out.println(equation);
-                    i -= sl - cl;
+                    code = '^';
+                    i = weaveAnotherString(equation, substringStart, substringEnd, i, code);
                     flag = true;
                     break;
                 }
@@ -89,21 +65,12 @@ public class ParenthesisEvaluator implements Pump {
                 if (equation.charAt(i) == 's') 
                 {   if (equation.charAt(i+1) == 'i') 
                     {   if (equation.charAt(i+2) == 'n') 
-                        {  substringStart = i;
+                        {   substringStart = i;
                             for(int k = i + 4; k < j; k++)
                                 if (equation.charAt(k) == ')')
                                 {   substringEnd = k + 1; break;  }
-                            StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
-                            StringBuilder comparison = new StringBuilder();
-                            Trigonometry trig = new Trigonometry();
-                            sl = sub.length();
-                            comparison = trig.sinTest(sub);
-                            cl = comparison.length();
-                            System.out.println("original pow substring: " + sub + " --> new pow substring: " + comparison);
-                            equation.delete(substringStart, substringEnd);
-                            equation.insert(substringStart, comparison);
-                            System.out.println(equation);
-                            i -= sl - cl;
+                            code = 'T';
+                            i = weaveAnotherString(equation, substringStart, substringEnd, i, code);
                             flag = true;
                             break;
                         }
@@ -115,17 +82,8 @@ public class ParenthesisEvaluator implements Pump {
                                 for(int k = i + 5; k < j; k++)
                                     if (equation.charAt(k) == ')')
                                     {   substringEnd = k + 1; break;  }
-                                StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
-                                StringBuilder comparison = new StringBuilder();
-                                Roots roots = new Roots();
-                                sl = sub.length();
-                                comparison = roots.SquareRootTest(sub);
-                                cl = comparison.length();
-                                System.out.println("original pow substring: " + sub + " --> new pow substring: " + comparison);
-                                equation.delete(substringStart, substringEnd);
-                                equation.insert(substringStart, comparison);
-                                System.out.println(equation);
-                                i -= sl - cl;
+                                code = 'R';
+                                i = weaveAnotherString(equation, substringStart, substringEnd, i, code);
                                 flag = true;
                                 break;
                             }
@@ -140,17 +98,8 @@ public class ParenthesisEvaluator implements Pump {
                             for(int k = i + 3; k < j; k++)
                                 if (equation.charAt(k) == ')')
                                 {   substringEnd = k + 1; break;  }
-                            StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
-                            StringBuilder comparison = new StringBuilder();
-                            Logarithm logarithm = new Logarithm();
-                            sl = sub.length();
-                            comparison = logarithm.LogTest(sub);
-                            cl = comparison.length();
-                            System.out.println("original pow substring: " + sub + " --> new pow substring: " + comparison);
-                            equation.delete(substringStart, substringEnd);
-                            equation.insert(substringStart, comparison);
-                            System.out.println(equation);
-                            i -= sl - cl;
+                            code = 'L';
+                            i = weaveAnotherString(equation, substringStart, substringEnd, i, code);
                             flag = true;
                             break;
                         }
@@ -183,18 +132,9 @@ public class ParenthesisEvaluator implements Pump {
                     else if (equation.charAt(i) == '/') M = false;
                     substringStart = putMarker1(equation, i, substringStart);
                     substringEnd = putMarker2(equation, i, substringEnd) - 1;
-                    StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
-                    StringBuilder comparison = new StringBuilder();
-                    MDCalculator md_calculator = new MDCalculator();
-                    sl = sub.length();
-                    if (M) comparison = md_calculator.multiply(sub);
-                    else if (!M) comparison = md_calculator.divide(sub);
-                    cl = comparison.length();
-                    System.out.println("original substring: " + sub + " --> new substring: " + comparison);
-                    equation.delete(substringStart, substringEnd);
-                    equation.insert(substringStart, comparison);
-                    System.out.println(equation);
-                    i -= sl - cl;
+                    if (M) code = '*';
+                    else if (!M) code = '/';
+                    i = weaveAnotherString(equation, substringStart, substringEnd, i, code);
                     flag = true;
                     break;
                 }
@@ -213,18 +153,9 @@ public class ParenthesisEvaluator implements Pump {
                     else if (equation.charAt(i) == '-') A = false;
                     substringStart = putMarker1(equation, i, substringStart);
                     substringEnd = putMarker2(equation, i, substringEnd) - 1;
-                    StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
-                    StringBuilder comparison = new StringBuilder();
-                    ASCalculator as_calculator = new ASCalculator();
-                    sl = sub.length();
-                    if (A) comparison = as_calculator.add(sub);
-                    else if (!A) comparison = as_calculator.subtract(sub);
-                    cl = comparison.length();
-                    System.out.println("original pow substring: " + sub + " --> new pow substring: " + comparison);
-                    equation.delete(substringStart, substringEnd);
-                    equation.insert(substringStart, comparison);
-                    System.out.println(equation);
-                    i -= sl - cl;
+                    if (A) code = '+';
+                    else if (!A) code = '-';
+                    i = weaveAnotherString(equation, substringStart, substringEnd, i, code);
                     flag = true;
                     break;
                 }

@@ -1,6 +1,6 @@
 package FunctionWeaver;
 
-public interface Pump {
+interface Prime {
     public default int putMarker1(StringBuilder equation, int i, int substringStart) {
         for (int k = i - 1; k >= 0; k--)
         {   if (equation.charAt(k) == '0' || equation.charAt(k) == '1' || equation.charAt(k) == '2' ||
