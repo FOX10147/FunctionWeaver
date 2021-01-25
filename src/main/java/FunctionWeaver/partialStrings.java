@@ -27,7 +27,7 @@ interface partialStrings {
         {   ASCalculator as_calculator = new ASCalculator();
             as_calculator.subtract(sub);
         }
-        if (code == 'E')
+        else if (code == 'E')
         {   Powers expPower = new Powers();
             expPower.exponentTest(sub);
         }

@@ -1,4 +1,5 @@
 This project aims to take an inputted function in the form of a string and play with it by breaking it down into smaller strings and compressing it. The idea is to have the program analyze the different characters in the string to recognize mathematical operations and decide how best to evaluate them. Math operations supportable would include elementary functions such as natural logs, logs, roots, multiplication and division, etc. The program will break these strings down and calculate such combinations of equations.
 
-This currently only has a few functions, so it is far from finished. The equations accepted follow a strict format for the time being. So far, I have only been experimenting with the following equation. 
-2*x-log(x)+(e^(sin(x))/x)
+This currently only has a few functions, so it is far from finished. The equations accepted follow a strict format for the time being and only takes numbers. No variables for now. 
+So far, I have only been experimenting with the following equation. 
+2*3-log(3)+(e^(sin(3))/3)+4
