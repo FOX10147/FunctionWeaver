@@ -1,38 +1,24 @@
 package FunctionWeaver;
 
-public class Roots {   
-    public Roots() {}
-    StringBuilder equation;
-    String whole;
-    String part;
-    String number;
-    int stringLength;
-    int partStart;
-    int partEnd;
-    double base;
-    double value;
-    double result;
+public class Roots extends IntermediateOperations {   
+    public Roots() {
+        super();
+    }
+    
 
     public StringBuilder SquareRootTest(StringBuilder equation) {
-        System.out.println(equation + " class for Square Root evaluation is being reached");
+        this.equation = equation;
+        this.operator = "Roots";
+        announce();
         
-        whole = equation.toString();
-        for (int i = 0; i < equation.length(); i++)
-            if (equation.charAt(i) == '(')
-            {   partStart = i + 1; break;  }
-        for (int i = partStart + 1; i < equation.length(); i++)
-            if (equation.charAt(i) == ')')
-            {   partEnd = i; break; }
-        value = Double.parseDouble(whole.substring(partStart, partEnd).toString());
+        partString();
+
         result = Math.sqrt(value);
+
         System.out.println("result is: " + result);
         
-        // Get result and put it back into the original string to create a new string.
-        stringLength = whole.length();
-        for (int i = 0; i < stringLength; i++)
-        equation.delete(0,1);
-        equation.insert(0, new Double(result).toString());
-        System.out.println(equation.toString() + " leaving logarithm class");
+        changeString();
+
         return equation;
     }
 }

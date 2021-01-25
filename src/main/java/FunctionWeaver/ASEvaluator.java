@@ -11,7 +11,7 @@ public class ASEvaluator {
         do
         {   flag = false;
             substringStart = 0;
-            for (int i = 0; i < equation.length(); i++)
+            for (int i = 1; i < equation.length(); i++)
             {   if (equation.charAt(i) == '0' || equation.charAt(i) == '1' || equation.charAt(i) == '2' ||
                     equation.charAt(i) == '3' || equation.charAt(i) == '4' || equation.charAt(i) == '5' ||
                     equation.charAt(i) == '6' || equation.charAt(i) == '7' || equation.charAt(i) == '8' ||

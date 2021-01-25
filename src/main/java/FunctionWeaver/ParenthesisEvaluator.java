@@ -89,7 +89,7 @@ public class ParenthesisEvaluator {
                     StringBuilder comparison = new StringBuilder();
                     Powers powers = new Powers();
                     sl = sub.length();
-                    comparison = powers.TestForFuture(sub);
+                    comparison = powers.powerTest(sub);
                     cl = comparison.length();
                     System.out.println("original substring: " + sub + " --> new substring: " + comparison);
                     equation.delete(substringStart, substringEnd);
@@ -103,10 +103,21 @@ public class ParenthesisEvaluator {
                 if (equation.charAt(i) == 's') 
                 {   if (equation.charAt(i+1) == 'i') 
                     {   if (equation.charAt(i+2) == 'n') 
-                        {   StringBuilder equation_2 = new StringBuilder().append(equation);
-                            Trigonometry trig = new Trigonometry(equation_2);
-                            equation_2 = trig.sinTest(equation_2);
-                            equation = equation_2;
+                        {  substringStart = i;
+                            for(int k = i + 4; k < j; k++)
+                                if (equation.charAt(k) == ')')
+                                {   substringEnd = k + 1; break;  }
+                            StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
+                            StringBuilder comparison = new StringBuilder();
+                            Trigonometry trig = new Trigonometry();
+                            sl = sub.length();
+                            comparison = trig.sinTest(sub);
+                            cl = comparison.length();
+                            System.out.println("original pow substring: " + sub + " --> new pow substring: " + comparison);
+                            equation.delete(substringStart, substringEnd);
+                            equation.insert(substringStart, comparison);
+                            System.out.println(equation);
+                            i -= sl - cl;
                             flag = true;
                             break;
                         }
@@ -147,7 +158,7 @@ public class ParenthesisEvaluator {
                             StringBuilder comparison = new StringBuilder();
                             Logarithm logarithm = new Logarithm();
                             sl = sub.length();
-                            comparison = logarithm.TestForFuture(sub);
+                            comparison = logarithm.LogTest(sub);
                             cl = comparison.length();
                             System.out.println("original pow substring: " + sub + " --> new pow substring: " + comparison);
                             equation.delete(substringStart, substringEnd);
@@ -221,7 +232,7 @@ public class ParenthesisEvaluator {
             substringStart = 0;
             substringEnd = 0;
             j = equation.length();
-            for (int i = 0; i < j; i++)
+            for (int i = 1; i < j; i++)
             {   if (equation.charAt(i) == '+' || equation.charAt(i) == '-')
                 {   for (int k = i - 1; k >= 0; k--)
                         if (equation.charAt(k) == '0' || equation.charAt(k) == '1' || equation.charAt(k) == '2' ||

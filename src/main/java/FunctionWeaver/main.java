@@ -30,7 +30,5 @@ public class main {
         equation = as_evaluator.lastCrunch(equation);
 
         sc.close();
-
     }
-    
 }
