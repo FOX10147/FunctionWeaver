@@ -22,12 +22,8 @@ public class main {
 
         ParenthesisEvaluator p_evaluator = new ParenthesisEvaluator();
         // ExponentEvaluator e_evaluator = new ExponentEvaluator();
-        MDEvaluator md_evaluator = new MDEvaluator();
-        ASEvaluator as_evaluator = new ASEvaluator();
         equation = p_evaluator.ParenthesisRecurse(equation);
         // equation = e_evaluator.exponentCrunch(equation);
-        equation = md_evaluator.Crunch(equation);
-        equation = as_evaluator.lastCrunch(equation);
 
         sc.close();
     }

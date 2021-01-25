@@ -1,10 +1,12 @@
 package FunctionWeaver;
 
-public class ParenthesisEvaluator {
+public class ParenthesisEvaluator implements Pump {
     private boolean flag = false;
 
     public StringBuilder ParenthesisRecurse(StringBuilder equation) 
     {   System.out.println(equation);
+        boolean M = true;
+        boolean A = true;
         int count = 0;
         int substringStart = 0;
         int substringEnd = 0;
@@ -67,24 +69,8 @@ public class ParenthesisEvaluator {
                 }
                 
                 if (equation.charAt(i) == '^') 
-                {   for (int k = i - 1; k >= 0; k--)
-                    {   if (equation.charAt(k) == '0' || equation.charAt(k) == '1' || equation.charAt(k) == '2' ||
-                            equation.charAt(k) == '3' || equation.charAt(k) == '4' || equation.charAt(k) == '5' ||
-                            equation.charAt(k) == '6' || equation.charAt(k) == '7' || equation.charAt(k) == '8' ||
-                            equation.charAt(k) == '9' || equation.charAt(k) == '.' || equation.charAt(k) == 'x')
-                        {   substringStart = k;   }
-                        else break;
-                    }
-
-                    for (int k = i + 2; k < equation.length(); k++)
-                    {   if (equation.charAt(k) == '0' || equation.charAt(k) == '1' || equation.charAt(k) == '2' ||
-                            equation.charAt(k) == '3' || equation.charAt(k) == '4' || equation.charAt(k) == '5' ||
-                            equation.charAt(k) == '6' || equation.charAt(k) == '7' || equation.charAt(k) == '8' ||
-                            equation.charAt(k) == '9' || equation.charAt(k) == '.' || equation.charAt(k) == 'x')
-                        {   substringEnd = k + 2;   }
-                        else break;
-                    }
-                    
+                {   substringStart = putMarker1(equation, i, substringStart);
+                    substringEnd = putMarker2(equation, i + 1, substringEnd);
                     StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
                     StringBuilder comparison = new StringBuilder();
                     Powers powers = new Powers();
@@ -193,27 +179,16 @@ public class ParenthesisEvaluator {
             j = equation.length();
             for (int i = 0; i < j; i++)
             {   if (equation.charAt(i) == '*' || equation.charAt(i) == '/')
-                {   for (int k = i - 1; k >= 0; k--)
-                    if (equation.charAt(k) == '0' || equation.charAt(k) == '1' || equation.charAt(k) == '2' ||
-                        equation.charAt(k) == '3' || equation.charAt(k) == '4' || equation.charAt(k) == '5' ||
-                        equation.charAt(k) == '6' || equation.charAt(k) == '7' || equation.charAt(k) == '8' ||
-                        equation.charAt(k) == '9' || equation.charAt(k) == '.' || equation.charAt(k) == 'x')
-                        {   substringStart = k;   }
-                    else break;
-
-                    for (int k = i + 1; k < equation.length(); k++)
-                    if (equation.charAt(k) == '0' || equation.charAt(k) == '1' || equation.charAt(k) == '2' ||
-                        equation.charAt(k) == '3' || equation.charAt(k) == '4' || equation.charAt(k) == '5' ||
-                        equation.charAt(k) == '6' || equation.charAt(k) == '7' || equation.charAt(k) == '8' ||
-                        equation.charAt(k) == '9' || equation.charAt(k) == '.' || equation.charAt(k) == 'x')
-                        {   substringEnd = k + 1;   }
-                    else break;
-
+                {   if (equation.charAt(i) == '*') M = true;
+                    else if (equation.charAt(i) == '/') M = false;
+                    substringStart = putMarker1(equation, i, substringStart);
+                    substringEnd = putMarker2(equation, i, substringEnd) - 1;
                     StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
                     StringBuilder comparison = new StringBuilder();
-                    MDEvaluator md_evaluator = new MDEvaluator();
+                    MDCalculator md_calculator = new MDCalculator();
                     sl = sub.length();
-                    comparison = md_evaluator.Crunch(sub);
+                    if (M) comparison = md_calculator.multiply(sub);
+                    else if (!M) comparison = md_calculator.divide(sub);
                     cl = comparison.length();
                     System.out.println("original substring: " + sub + " --> new substring: " + comparison);
                     equation.delete(substringStart, substringEnd);
@@ -234,36 +209,25 @@ public class ParenthesisEvaluator {
             j = equation.length();
             for (int i = 1; i < j; i++)
             {   if (equation.charAt(i) == '+' || equation.charAt(i) == '-')
-                {   for (int k = i - 1; k >= 0; k--)
-                        if (equation.charAt(k) == '0' || equation.charAt(k) == '1' || equation.charAt(k) == '2' ||
-                            equation.charAt(k) == '3' || equation.charAt(k) == '4' || equation.charAt(k) == '5' ||
-                            equation.charAt(k) == '6' || equation.charAt(k) == '7' || equation.charAt(k) == '8' ||
-                            equation.charAt(k) == '9' || equation.charAt(k) == '.' || equation.charAt(k) == 'x')
-                            {   substringStart = k;   }
-                        else break;
-
-                    for (int k = i + 1; k < equation.length(); k++)
-                        if (equation.charAt(k) == '0' || equation.charAt(k) == '1' || equation.charAt(k) == '2' ||
-                            equation.charAt(k) == '3' || equation.charAt(k) == '4' || equation.charAt(k) == '5' ||
-                            equation.charAt(k) == '6' || equation.charAt(k) == '7' || equation.charAt(k) == '8' ||
-                            equation.charAt(k) == '9' || equation.charAt(k) == '.' || equation.charAt(k) == 'x')
-                            {   substringEnd = k + 1;   }
-                        else break;
-
-                        StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
-                        StringBuilder comparison = new StringBuilder();
-                        ASEvaluator as_evaluator = new ASEvaluator();
-                        sl = sub.length();
-                        comparison = as_evaluator.lastCrunch(sub);
-                        cl = comparison.length();
-                        System.out.println("original substring: " + sub + " --> new substring: " + comparison);
-                        equation.delete(substringStart, substringEnd);
-                        equation.insert(substringStart, comparison);
-                        System.out.println(equation);
-                        i -= sl - cl;
-                        flag = true;
-                        break;
-                    }
+                {   if (equation.charAt(i) == '+') A = true;
+                    else if (equation.charAt(i) == '-') A = false;
+                    substringStart = putMarker1(equation, i, substringStart);
+                    substringEnd = putMarker2(equation, i, substringEnd) - 1;
+                    StringBuilder sub = new StringBuilder(equation.substring(substringStart, substringEnd));
+                    StringBuilder comparison = new StringBuilder();
+                    ASCalculator as_calculator = new ASCalculator();
+                    sl = sub.length();
+                    if (A) comparison = as_calculator.add(sub);
+                    else if (!A) comparison = as_calculator.subtract(sub);
+                    cl = comparison.length();
+                    System.out.println("original substring: " + sub + " --> new substring: " + comparison);
+                    equation.delete(substringStart, substringEnd);
+                    equation.insert(substringStart, comparison);
+                    System.out.println(equation);
+                    i -= sl - cl;
+                    flag = true;
+                    break;
+                }
             }
         }
         while(flag);
