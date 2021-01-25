@@ -1,73 +1,36 @@
 package FunctionWeaver;
 
-public class ASCalculator {
-    public ASCalculator() {}
-    StringBuilder equation;
-    String left;
-    String right;
-    int stringLength;
-    int substringLStart;
-    int substringLEnd;
-    int substringRStart;
-    int substringREnd;
-    double firstValue;
-    double secondValue;
-    double resultValue;
+public class ASCalculator extends BasicOperations {
+    public ASCalculator() {
+        super();
+    }
 
     public StringBuilder add (StringBuilder equation) {
-        System.out.println(equation + " class for addition evaluation is being reached");
+        this.equation = equation;
+        this.operator = "Addition";
+        this.symbol = '+';
+        announce();
 
-        substringLStart = 0;
-        substringREnd = equation.length();
-        for (int i = 1; i < equation.length(); i++)
-        {   if (equation.charAt(i) == '+')
-            {   substringLEnd = i;
-                substringRStart = i + 1;
-                break;
-            }
+        assignStrings();
 
-        }
-        left = equation.substring(substringLStart, substringLEnd);
-        right = equation.substring(substringRStart, substringREnd);
-        firstValue = Double.parseDouble(left);
-        secondValue = Double.parseDouble(right);
-        resultValue = firstValue + secondValue;
-
-        stringLength = equation.length();
-        for (int i = 0; i < stringLength; i++)
-        equation.delete(0, 1);
+        calculateValues();
         
-        equation.append(new Double(resultValue).toString());
-        System.out.println(equation.toString() + " leaving addition class");
+        changeString();
 
         return equation;
     }
 
     public StringBuilder subtract (StringBuilder equation) {
-        System.out.println(equation + " class for subtraction evaluation is being reached");
+        this.equation = equation;
+        this.operator = "Subtraction";
+        this.symbol = '-';
+        announce();
 
-        substringLStart = 0;
-        substringREnd = equation.length();
-        for (int i = 1; i < equation.length(); i++)
-        {   if (equation.charAt(i) == '-')
-            {   substringLEnd = i;
-                substringRStart = i + 1;
-                break;
-            }
-
-        }
-        left = equation.substring(substringLStart, substringLEnd);
-        right = equation.substring(substringRStart, substringREnd);
-        firstValue = Double.parseDouble(left);
-        secondValue = Double.parseDouble(right);
-        resultValue = firstValue - secondValue;
-
-        stringLength = equation.length();
-        for (int i = 0; i < stringLength; i++)
-        equation.delete(0, 1);
+        assignStrings();
         
-        equation.append(new Double(resultValue).toString());
-        System.out.println(equation.toString() + " leaving subtraction class");
+        calculateValues();
+        
+        changeString();
 
         return equation;
     }
