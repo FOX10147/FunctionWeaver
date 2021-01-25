@@ -220,7 +220,7 @@ public class ParenthesisEvaluator implements Pump {
                     if (A) comparison = as_calculator.add(sub);
                     else if (!A) comparison = as_calculator.subtract(sub);
                     cl = comparison.length();
-                    System.out.println("original substring: " + sub + " --> new substring: " + comparison);
+                    System.out.println("original pow substring: " + sub + " --> new pow substring: " + comparison);
                     equation.delete(substringStart, substringEnd);
                     equation.insert(substringStart, comparison);
                     System.out.println(equation);
