@@ -1,4 +1,4 @@
-package FunctionWeaver;
+package FunctionWeaver.Calculators;
 
 public class Powers extends IntermediateOperations {
     public Powers() {

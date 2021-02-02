@@ -1,6 +1,9 @@
-package FunctionWeaver;
+package FunctionWeaver.interfaces;
 
-interface partialStrings {
+import FunctionWeaver.Calculators.*;
+import FunctionWeaver.ParenthesisEvaluator;
+
+public interface partialStrings {
     public default int weaveAnotherString (StringBuilder equation, int substringStart, int substringEnd, int i, char code) {
         int sl;
         int cl;

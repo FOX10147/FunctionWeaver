@@ -1,5 +1,7 @@
 package FunctionWeaver;
 
+import FunctionWeaver.interfaces.*;
+
 public class ParenthesisEvaluator implements Prime, partialStrings {
     private boolean flag = false;
     protected char code = ' ';

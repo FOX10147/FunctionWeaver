@@ -1,6 +1,6 @@
-package FunctionWeaver;
+package FunctionWeaver.Calculators;
 
-public class BasicOperations {
+abstract class BasicOperations {
     public BasicOperations() {
         super();
     }
