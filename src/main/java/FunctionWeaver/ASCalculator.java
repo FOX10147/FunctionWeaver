@@ -9,13 +9,17 @@ public class ASCalculator extends BasicOperations {
         this.equation = equation;
         this.operator = "Addition";
         this.symbol = '+';
-        announce();
+        boolean hold = false;
 
-        assignStrings();
-
-        calculateValues();
+        if (equation.charAt(0) == '-') hold = true;
         
+        announce();
+        assignStrings();
+        calculateValues();
         changeString();
+
+        if (equation.charAt(0) == '-') hold = false;
+        if (hold) equation.insert(0, '+');
 
         return equation;
     }
@@ -24,12 +28,10 @@ public class ASCalculator extends BasicOperations {
         this.equation = equation;
         this.operator = "Subtraction";
         this.symbol = '-';
+        
         announce();
-
         assignStrings();
-        
         calculateValues();
-        
         changeString();
 
         return equation;

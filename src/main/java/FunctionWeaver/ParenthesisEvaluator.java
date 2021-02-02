@@ -11,8 +11,6 @@ public class ParenthesisEvaluator implements Prime, partialStrings {
         int count = 0;
         int substringStart = 0;
         int substringEnd = 0;
-        int sl;
-        int cl;
         int j = equation.length();
         for (int i = 0; i < j; i++) {
             if (equation.charAt(i) == '(') 
@@ -153,6 +151,11 @@ public class ParenthesisEvaluator implements Prime, partialStrings {
                     else if (equation.charAt(i) == '-') A = false;
                     substringStart = putMarker1(equation, i, substringStart);
                     substringEnd = putMarker2(equation, i, substringEnd) - 1;
+                    try 
+                    {   if (equation.charAt(substringStart - 1) == '-')
+                        {   substringStart -= 1;    }
+                    }   
+                    catch (StringIndexOutOfBoundsException oops) {}
                     if (A) code = '+';
                     else if (!A) code = '-';
                     i = weaveAnotherString(equation, substringStart, substringEnd, i, code);
@@ -163,6 +166,8 @@ public class ParenthesisEvaluator implements Prime, partialStrings {
         }
         while(flag);
         
+        if (equation.charAt(0) == '+') equation.delete(0,1);
+
         System.out.println(equation);
 
         return equation;

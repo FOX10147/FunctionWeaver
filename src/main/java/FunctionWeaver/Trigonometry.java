@@ -14,9 +14,7 @@ public class Trigonometry extends IntermediateOperations {
         this.operator = "Trigonometry";
 
         partString();
-
         result = Math.sin(value);
-
         changeString();
 
         return equation;
