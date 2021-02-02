@@ -19,4 +19,15 @@ public class Trigonometry extends IntermediateOperations {
 
         return equation;
     }
+
+    public StringBuilder cosTest(StringBuilder equation) {
+        this.equation = equation;
+        this.operator = "Trigonometry";
+
+        partString();
+        result = Math.cos(value);
+        changeString();
+
+        return equation;
+    }
 }

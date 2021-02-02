@@ -35,7 +35,21 @@ public class ParenthesisEvaluator implements Prime, partialStrings {
             substringEnd = 0;
             j = equation.length();
             for (int i = 0; i < j; i++) 
-            {   if (equation.charAt(i) == 'e') 
+            {   if (equation.charAt(i) == 'c')
+                {   if (equation.charAt(i+1) == 'o')
+                    {   if (equation.charAt(i+2) == 's')
+                        substringStart = i;
+                        for (int k = i + 4; k < j; k++)
+                            if (equation.charAt(k) == ')')
+                            {   substringEnd = k + 1; break;    }
+                            code = 'U';
+                            i = weaveAnotherString(equation, substringStart, substringEnd, i, code);
+                            flag = true;
+                            break;
+                    }
+                }
+                
+                if (equation.charAt(i) == 'e') 
                 {   if (equation.charAt(i+1) == '^') 
                     {   substringStart = i;
                         substringEnd = i+2;
