@@ -51,6 +51,10 @@ interface partialStrings {
         {   Trigonometry trig = new Trigonometry();
             trig.cosTest(sub);
         }
+        else if (code == 'V')
+        {   Trigonometry trig = new Trigonometry();
+            trig.tanTest(sub);
+        }
         
         cl = sub.length();
         System.out.println("new substring: " + sub);

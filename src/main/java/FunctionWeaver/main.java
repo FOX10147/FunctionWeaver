@@ -3,7 +3,7 @@ package FunctionWeaver;
 import java.util.*;
 
 public class main {
-    public static void main(String[] args )
+    public static void main(String[] args)
     {   Scanner sc = new Scanner(System.in);
 
         System.out.println("----------------------------------------------------------------------------------------------------------------------------");
@@ -21,9 +21,7 @@ public class main {
         System.out.println("I'm reading " + Equation);
 
         ParenthesisEvaluator p_evaluator = new ParenthesisEvaluator();
-        // ExponentEvaluator e_evaluator = new ExponentEvaluator();
         equation = p_evaluator.ParenthesisRecurse(equation);
-        // equation = e_evaluator.exponentCrunch(equation);
 
         sc.close();
     }

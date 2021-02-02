@@ -30,4 +30,21 @@ public class Trigonometry extends IntermediateOperations {
 
         return equation;
     }
+
+    public StringBuilder tanTest(StringBuilder equation) {
+        this.equation = equation;
+        this.operator = "Trigonometry";
+
+        partString();
+        try
+        {   result = Math.tan(value);   }
+        catch (Exception undefined)
+        {   System.out.println("Error: tangent reached undefined value");
+            System.out.println("Please check the domain of your equation");
+            System.exit(0);
+        }
+            changeString();
+
+        return equation;
+    }
 }
