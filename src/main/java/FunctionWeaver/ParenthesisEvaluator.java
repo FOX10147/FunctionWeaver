@@ -14,8 +14,12 @@ public class ParenthesisEvaluator implements Prime, partialStrings {
         int substringStart = 0;
         int substringEnd = 0;
         int j = equation.length();
-        for (int i = 0; i < j; i++) {
-            if (equation.charAt(i) == '(') 
+
+        // This section will look for chained functions inside parenthesis.
+        // Any parenthesis with functions in them will be evaulated first
+        // by starting another ParenthesisEvaluator object with chain function.
+        for (int i = 0; i < j; i++) 
+        {   if (equation.charAt(i) == '(') 
             {   count++;
                 if (count == 1) 
                     substringStart = i + 1;
@@ -31,6 +35,7 @@ public class ParenthesisEvaluator implements Prime, partialStrings {
             }
         }
         
+        // This large section will look for elementary functions and evaluate them as appropriate.
         do 
         {   flag = false;
             substringStart = 0;
@@ -138,6 +143,7 @@ public class ParenthesisEvaluator implements Prime, partialStrings {
         }
         while (flag);
 
+        // This section gets rid of parenthesis as they are no longer needed at this point.
         do 
         {   flag = false;
             for (int i = 0; i < equation.length(); i++)
@@ -150,6 +156,7 @@ public class ParenthesisEvaluator implements Prime, partialStrings {
         }   
         while(flag);
 
+        // This section will evaluate from left to right multiplication and division which have same precedence as each other.
         do
         {   flag = false;
             substringStart = 0;
