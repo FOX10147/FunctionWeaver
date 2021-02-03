@@ -1,6 +1,7 @@
 package FunctionWeaver;
 
 import java.util.*;
+import FunctionWeaver.Format.Formatter;
 
 public class main {
     public static void main(String[] args)
@@ -20,6 +21,8 @@ public class main {
         System.out.println();
         System.out.println("I'm reading " + Equation);
 
+        Formatter formatter = new Formatter(equation);
+        formatter.check(sc);
         ParenthesisEvaluator p_evaluator = new ParenthesisEvaluator();
         equation = p_evaluator.ParenthesisRecurse(equation);
 

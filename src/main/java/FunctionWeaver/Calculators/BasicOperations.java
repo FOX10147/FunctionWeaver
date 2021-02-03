@@ -43,7 +43,15 @@ abstract class BasicOperations {
         if (symbol == '*')
         {   resultValue = firstValue * secondValue; }
         else if (symbol == '/')
-        {   resultValue = firstValue / secondValue; }
+        {   try
+            {   if (secondValue == 0) throw new ArithmeticException();
+                resultValue = firstValue / secondValue; 
+            }
+            catch (ArithmeticException oops)
+            {   System.out.println("Error: A calculation is dividing by 0. Result is undefined.");
+                System.out.println("Please check the domain of your equation.");
+            }
+        }
         else if (symbol == '+')
         {   resultValue = firstValue + secondValue; }
         else if (symbol == '-')

@@ -9,12 +9,10 @@ public class MDCalculator extends BasicOperations {
         this.equation = equation;
         this.operator = "Multiplication";
         this.symbol = '*';
-        announce();
 
+        announce();
         assignStrings();
-        
         calculateValues();
-        
         changeString();
 
         return equation;
@@ -24,12 +22,10 @@ public class MDCalculator extends BasicOperations {
         this.equation = equation;
         this.operator = "Division";
         this.symbol = '/';
-        announce();
 
+        announce();
         assignStrings();
-        
         calculateValues();
-        
         changeString();
 
         return equation;
